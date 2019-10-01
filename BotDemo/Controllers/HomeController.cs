@@ -30,7 +30,7 @@ namespace BotDemo.Controllers
         //    return View();
         //}
 
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult UploadFiles()
         {
@@ -52,7 +52,8 @@ namespace BotDemo.Controllers
             return View(result);
         }
 
-        [HttpPost]
+        
+        [HttpPost]       
         //[ValidateAntiForgeryToken]
         public JsonResult DeleteFiles(/*int id,*/ int primary)
         {

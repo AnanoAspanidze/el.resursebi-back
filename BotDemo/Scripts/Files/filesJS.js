@@ -5,19 +5,27 @@
             var files = $("#fileInput").get(0).files;
             var fileData = new FormData();
 
+            //var newUrl = '@Url.Action("Home","Gallery")';
+
+            fileData.append("__RequestVerificationToken", $('[name=__RequestVerificationToken]').val());
+
             for (var i = 0; i < files.length; i++) {
                 fileData.append("fileInput", files[i]);
             }
-
+            //var form = $('#__AjaxAntiForgeryForm');
+            //var token = $('input[name="__RequestVerificationToken"]', form).val();
+            //var url = 'Gallery", "Home")';
             $.ajax({
                 type: "POST",
                 url: "/Home/UploadFiles",
                 dataType: "json",
                 contentType: false, // Not to set any content header
                 processData: false, // Not to process data
+                //data: fileData,
                 data: fileData,
                 success: function (result, status, xhr) {
                     alert(result);
+                    //window.location = newUrl
                 },
                 error: function (xhr, status, error) {
                     alert(status);
