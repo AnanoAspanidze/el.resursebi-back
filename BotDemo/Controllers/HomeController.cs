@@ -13,16 +13,13 @@ namespace BotDemo.Controllers
         {
             return View();
         }
-
-
-       
+        
         [HttpGet]
         public ActionResult AddImages()
         {
             return View();
         }
-
-
+        
         [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult AddImages(HttpPostedFileBase files)
@@ -30,18 +27,8 @@ namespace BotDemo.Controllers
             return View();
         }
 
-
-        public ActionResult About()
+        public ActionResult Gallery()
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
             return View();
         }
     }
