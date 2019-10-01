@@ -1,0 +1,31 @@
+﻿@model IEnumerable<BotDemo.Models.Files>
+@{
+    ViewBag.Title = "Gallery";
+}
+
+<h2>Gallery</h2>
+   
+        <div id="Files">
+            <div class="tz-gallery">
+                <div class="row">
+                    @foreach (var item in Model.ToList())
+                    {
+
+                        <div class="img col-sm-6 col-md-4">
+                            <a class="lightbox" href="@Url.Content(item.Url)">
+                                <img class="imgClass" id="imgId" @*value="@item.Id"*@ src="@Url.Content(item.Url)" alt="Park">
+                            </a>
+                            <button class="btn btn-default" value="@item.Id" id="FileId" style=" position: absolute; margin:0; top:0px; right:15px;">X</button>
+                        </div>
+                    }
+                </div>
+            </div>
+    </div>
+
+    @*<div class="modal-body" id="deleteImageConfirm" style="display:none; color:red; font-weight:bolder;margin-left: 25px;"><p>Image has been deleted</p></div>*@
+
+
+
+        @*<script src="~/Scripts/Files/filesJS.js"></script>*@
+   
+    

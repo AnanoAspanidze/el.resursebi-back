@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ResourcesDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Files">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Url" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="StudentId" Type="Int32" />
+    <NavigationProperty Name="Students" Relationship="Self.FK_Files_Students" FromRole="Files" ToRole="Students" />
+  </EntityType>
+  <EntityType Name="Hints">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LessonId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Lessons" Relationship="Self.FK_Hints_Lessons" FromRole="Hints" ToRole="Lessons" />
+    <NavigationProperty Name="SubPages" Relationship="Self.FK_SubPages_Hints" FromRole="Hints" ToRole="SubPages" />
+  </EntityType>
+  <EntityType Name="Lessons">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SubjectId" Type="Int32" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="IsDone" Type="Boolean" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Hints" Relationship="Self.FK_Hints_Lessons" FromRole="Lessons" ToRole="Hints" />
+    <NavigationProperty Name="Subjects" Relationship="Self.FK_Lessons_Subjects" FromRole="Lessons" ToRole="Subjects" />
+  </EntityType>
+  <EntityType Name="Students">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TeacherId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Files" Relationship="Self.FK_Files_Students" FromRole="Students" ToRole="Files" />
+    <NavigationProperty Name="Teachers" Relationship="Self.FK_Students_Teachers" FromRole="Students" ToRole="Teachers" />
+    <NavigationProperty Name="Subjects" Relationship="Self.FK_Subjects_Students" FromRole="Students" ToRole="Subjects" />
+  </EntityType>
+  <EntityType Name="Subjects">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="StudentsId" Type="Int32" />
+    <NavigationProperty Name="Lessons" Relationship="Self.FK_Lessons_Subjects" FromRole="Subjects" ToRole="Lessons" />
+    <NavigationProperty Name="Students" Relationship="Self.FK_Subjects_Students" FromRole="Subjects" ToRole="Students" />
+  </EntityType>
+  <EntityType Name="SubPages">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Url" Type="Int32" Nullable="false" />
+    <Property Name="HintsId" Type="Int32" />
+    <NavigationProperty Name="Hints" Relationship="Self.FK_SubPages_Hints" FromRole="SubPages" ToRole="Hints" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Teachers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="Students" Relationship="Self.FK_Students_Teachers" FromRole="Teachers" ToRole="Students" />
+  </EntityType>
+  <Association Name="FK_Files_Students">
+    <End Role="Students" Type="Self.Students" Multiplicity="0..1" />
+    <End Role="Files" Type="Self.Files" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Students">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Files">
+        <PropertyRef Name="StudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hints_Lessons">
+    <End Role="Lessons" Type="Self.Lessons" Multiplicity="1" />
+    <End Role="Hints" Type="Self.Hints" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lessons">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Hints">
+        <PropertyRef Name="LessonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SubPages_Hints">
+    <End Role="Hints" Type="Self.Hints" Multiplicity="0..1" />
+    <End Role="SubPages" Type="Self.SubPages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hints">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SubPages">
+        <PropertyRef Name="HintsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Lessons_Subjects">
+    <End Role="Subjects" Type="Self.Subjects" Multiplicity="1" />
+    <End Role="Lessons" Type="Self.Lessons" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Subjects">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Lessons">
+        <PropertyRef Name="SubjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Students_Teachers">
+    <End Role="Teachers" Type="Self.Teachers" Multiplicity="1" />
+    <End Role="Students" Type="Self.Students" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teachers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Students">
+        <PropertyRef Name="TeacherId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Subjects_Students">
+    <End Role="Students" Type="Self.Students" Multiplicity="0..1" />
+    <End Role="Subjects" Type="Self.Subjects" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Students">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Subjects">
+        <PropertyRef Name="StudentsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ResourcesDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Files" EntityType="Self.Files" />
+    <EntitySet Name="Hints" EntityType="Self.Hints" />
+    <EntitySet Name="Lessons" EntityType="Self.Lessons" />
+    <EntitySet Name="Students" EntityType="Self.Students" />
+    <EntitySet Name="Subjects" EntityType="Self.Subjects" />
+    <EntitySet Name="SubPages" EntityType="Self.SubPages" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="Teachers" EntityType="Self.Teachers" />
+    <AssociationSet Name="FK_Files_Students" Association="Self.FK_Files_Students">
+      <End Role="Students" EntitySet="Students" />
+      <End Role="Files" EntitySet="Files" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hints_Lessons" Association="Self.FK_Hints_Lessons">
+      <End Role="Lessons" EntitySet="Lessons" />
+      <End Role="Hints" EntitySet="Hints" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SubPages_Hints" Association="Self.FK_SubPages_Hints">
+      <End Role="Hints" EntitySet="Hints" />
+      <End Role="SubPages" EntitySet="SubPages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Lessons_Subjects" Association="Self.FK_Lessons_Subjects">
+      <End Role="Subjects" EntitySet="Subjects" />
+      <End Role="Lessons" EntitySet="Lessons" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Students_Teachers" Association="Self.FK_Students_Teachers">
+      <End Role="Teachers" EntitySet="Teachers" />
+      <End Role="Students" EntitySet="Students" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Subjects_Students" Association="Self.FK_Subjects_Students">
+      <End Role="Students" EntitySet="Students" />
+      <End Role="Subjects" EntitySet="Subjects" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

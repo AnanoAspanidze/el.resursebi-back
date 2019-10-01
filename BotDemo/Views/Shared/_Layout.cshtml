@@ -4,8 +4,28 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    @*@Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")*@
+
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    @*<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />*@
+
+    <!-- js files -->
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.css">
+
+    <style>
+
+        .imgClass{
+            width: 100%;
+            height: 20vw;
+            object-fit: cover;
+        }
+    </style>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -41,19 +61,30 @@
 
     @*<script>
 
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', "https://webchat.botframework.com/api/tokens", true);
-        xhr.setRequestHeader('Authorization', 'BotConnector ' + 'GBD5WMFX4j0.rGv2aKQzs02t6c48j236pOLa7pV5rwmKGhz8b30Xeeo');
-        xhr.send();
-        xhr.onreadystatechange = processRequest;
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', "https://webchat.botframework.com/api/tokens", true);
+            xhr.setRequestHeader('Authorization', 'BotConnector ' + 'GBD5WMFX4j0.rGv2aKQzs02t6c48j236pOLa7pV5rwmKGhz8b30Xeeo');
+            xhr.send();
+            xhr.onreadystatechange = processRequest;
 
-        function processRequest(e) {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                var response = JSON.parse(xhr.responseText);
-                document.getElementById("chat").src = "https://webchat.botframework.com/embed/MESBot1?t=" + response
+            function processRequest(e) {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    document.getElementById("chat").src = "https://webchat.botframework.com/embed/MESBot1?t=" + response
+                }
             }
-        }
 
-    </script>*@
+        </script>*@
+
+
+    <!-- Scripts for images -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
+
+    <script>
+        baguetteBox.run('.tz-gallery');
+    </script>
+
+    <script src="~/Scripts/Files/filesJS.js"></script>
 </body>
 </html>
+
