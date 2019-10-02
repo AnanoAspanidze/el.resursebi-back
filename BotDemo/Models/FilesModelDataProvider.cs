@@ -21,16 +21,20 @@ namespace BotDemo.Models
         {
             //string path = Server.MapPath("~/Content/Upload/")
             var mapPath = HostingEnvironment.MapPath("~/Content/Files/");
+            Guid g = Guid.NewGuid();
+            string GuidString = Convert.ToBase64String(g.ToByteArray());
+            GuidString = GuidString.Replace("=", "");
+            GuidString = GuidString.Replace("+", "");
             if (file != null)
             {
-                file.SaveAs(mapPath + file.FileName);
+                file.SaveAs(mapPath + GuidString + file.FileName);
                     _db.Files.Add(new Files()
-                    {
-                        Name = file.FileName,
-                        Url = "/Content/Files/" + file.FileName,
+                    {                        
+                        Name = GuidString + file.FileName,
+                        Url = "/Content/Files/"+ GuidString + file.FileName,
                         StudentId = 1,
                     });
-                _db.SaveChanges();
+                _db.SaveChanges(); 
             }
         }
 

@@ -5,7 +5,7 @@
             var files = $("#fileInput").get(0).files;
             var fileData = new FormData();
 
-            //var newUrl = '@Url.Action("Home","Gallery")';
+            var newUrl = '@Url.Action("Gallery","Home")';
 
             fileData.append("__RequestVerificationToken", $('[name=__RequestVerificationToken]').val());
 
@@ -25,7 +25,7 @@
                 data: fileData,
                 success: function (result, status, xhr) {
                     alert(result);
-                    //window.location = newUrl
+                    window.location.href = "/Home/Gallery"
                 },
                 error: function (xhr, status, error) {
                     alert(status);
@@ -54,7 +54,7 @@
 
 //script for remove files
 
-    $(document).on("click", "#FileId", function (e) {
+$(document).on("click", "#FileButtonId", function (e) {
             var primaryValue = $(this).val();
     //var fileId = $('#imgId').val();
             if (confirm('Are you sure?')) {
